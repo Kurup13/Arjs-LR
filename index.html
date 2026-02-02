@@ -32,13 +32,13 @@
     arjs="sourceType: webcam; debugUIEnabled: false;"
     renderer="logarithmicDepthBuffer: true;"
   >
-    <!-- Marker 1: HIRO -->
-    <a-marker id="marker1" preset="hiro">
+    <!-- HIRO marker with red cube -->
+    <a-marker id="markerHiro" preset="hiro" emitevents="true">
       <a-box position="0 0.5 0" color="#FF0000"></a-box>
     </a-marker>
 
-    <!-- Marker 2: KANJI -->
-    <a-marker id="marker2" preset="kanji">
+    <!-- KANJI marker with blue cube -->
+    <a-marker id="markerKanji" preset="kanji" emitevents="true">
       <a-box position="0 0.5 0" color="#0000FF"></a-box>
     </a-marker>
 
@@ -46,24 +46,24 @@
   </a-scene>
 
   <script>
-    const marker1 = document.getElementById('marker1');
-    const marker2 = document.getElementById('marker2');
-    const distSpan = document.getElementById('distValue');
+    const markerHiro  = document.getElementById('markerHiro');
+    const markerKanji = document.getElementById('markerKanji');
+    const distSpan    = document.getElementById('distValue');
 
-    let m1Visible = false;
-    let m2Visible = false;
+    let hiroVisible  = false;
+    let kanjiVisible = false;
 
-    marker1.addEventListener('markerFound', () => { m1Visible = true;  });
-    marker1.addEventListener('markerLost',  () => { m1Visible = false; });
-    marker2.addEventListener('markerFound', () => { m2Visible = true;  });
-    marker2.addEventListener('markerLost',  () => { m2Visible = false; });
+    markerHiro.addEventListener('markerFound', () => { hiroVisible = true;  });
+    markerHiro.addEventListener('markerLost',  () => { hiroVisible = false; });
+    markerKanji.addEventListener('markerFound', () => { kanjiVisible = true;  });
+    markerKanji.addEventListener('markerLost',  () => { kanjiVisible = false; });
 
     function updateDistance() {
-      if (m1Visible && m2Visible &&
-          marker1.object3D && marker2.object3D) {
+      if (hiroVisible && kanjiVisible &&
+          markerHiro.object3D && markerKanji.object3D) {
 
-        const p1 = marker1.object3D.position;
-        const p2 = marker2.object3D.position;
+        const p1 = markerHiro.object3D.position;
+        const p2 = markerKanji.object3D.position;
 
         const dx = p1.x - p2.x;
         const dy = p1.y - p2.y;
