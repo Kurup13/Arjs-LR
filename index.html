@@ -65,7 +65,8 @@
   </div>
 
   <div id="distanceOverlay" class="overlay">
-    Distance: <span id="distValue">--</span> m
+    <div>WALL-E: <span id="walleStatus">❌</span> | RON: <span id="ronStatus">❌</span></div>
+    <div>Distance: <span id="distValue">--</span> m</div>
   </div>
 
   <a-scene
@@ -147,10 +148,13 @@
       loadingOverlay.style.display = 'none';
     }, 30000);
 
-    for (const [name, marker] of Object.entries(markers)) {
-      marker.addEventListener('markerFound', () => { visibility[name] = true; });
-      marker.addEventListener('markerLost',  () => { visibility[name] = false; });
-    }
+    const walleStatus = document.getElementById('walleStatus');
+    const ronStatus   = document.getElementById('ronStatus');
+
+    markers.walle.addEventListener('markerFound', () => { visibility.walle = true;  walleStatus.textContent = '✅'; });
+    markers.walle.addEventListener('markerLost',  () => { visibility.walle = false; walleStatus.textContent = '❌'; });
+    markers.ron.addEventListener('markerFound',   () => { visibility.ron = true;    ronStatus.textContent = '✅'; });
+    markers.ron.addEventListener('markerLost',    () => { visibility.ron = false;   ronStatus.textContent = '❌'; });
 
     function getDistance(m1, m2) {
       const p1 = m1.object3D.position;
