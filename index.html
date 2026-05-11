@@ -172,7 +172,7 @@
     function updateDistance() {
       if (visibility.walle && visibility.ron) {
         const dist = getDistance(markers.walle, markers.ron);
-        distSpan.textContent = (dist / 1000).toFixed(3);
+        distSpan.textContent = (dist / 4085).toFixed(3);
       } else {
         distSpan.textContent = "--";
       }
