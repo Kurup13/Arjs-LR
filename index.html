@@ -85,7 +85,9 @@
       smoothTolerance="0.01"
       smoothThreshold="5"
     >
-      <a-sphere position="0 0 0" radius="0.5" color="#00FF00"></a-sphere>
+      <a-entity scale="50 50 50">
+        <a-sphere position="0 0 0" radius="1" color="#00FF00"></a-sphere>
+      </a-entity>
     </a-nft>
 
     <!-- RON NFT Marker -->
@@ -99,7 +101,9 @@
       smoothTolerance="0.01"
       smoothThreshold="5"
     >
-      <a-cylinder position="0 0 0" radius="0.5" height="1" color="#FFA500"></a-cylinder>
+      <a-entity scale="50 50 50">
+        <a-cylinder position="0 0 0" radius="1" height="2" color="#FFA500"></a-cylinder>
+      </a-entity>
     </a-nft>
 
     <a-entity camera></a-entity>
@@ -168,7 +172,7 @@
     function updateDistance() {
       if (visibility.walle && visibility.ron) {
         const dist = getDistance(markers.walle, markers.ron);
-        distSpan.textContent = dist.toFixed(3);
+        distSpan.textContent = (dist / 1000).toFixed(3);
       } else {
         distSpan.textContent = "--";
       }
