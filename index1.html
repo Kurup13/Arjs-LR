@@ -248,40 +248,24 @@
       </a-entity>
     </a-nft>
 
-    <!-- Camera with cursor for tap interaction -->
-    <a-entity camera>
-      <a-cursor
-        fuse="false"
-        raycaster="objects: .clickable; far: 10000"
-        material="color: white; opacity: 0.8"
-        geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015">
-      </a-cursor>
-    </a-entity>
+    <a-entity camera></a-entity>
 
   </a-scene>
 
   <script>
-    // ── Cursor listener component ──────────────────────────────
-    AFRAME.registerComponent('cursor-listener', {
-      schema: {
-        label: { type: 'string', default: '' },
-        info:  { type: 'string', default: '' },
-        color: { type: 'string', default: '#fff' }
-      },
-      init: function () {
-        const el = this.el;
-        const data = this.data;
-        el.addEventListener('click', () => {
-          // Pulse animation on click
-          el.setAttribute('animation__click', {
-            property: 'scale',
-            from: '1 1 1', to: '1.4 1.4 1.4',
-            dir: 'alternate', dur: 300, loop: 2
-          });
-          showPopup(data.label, data.info, data.color);
-        });
+    // ── Screen tap interaction ─────────────────────────────────
+    document.addEventListener('touchstart', handleTap);
+    document.addEventListener('click', handleTap);
+
+    function handleTap() {
+      if (visibility.walle && visibility.ron) {
+        showPopup('WALL·E & RON', 'Both markers detected!\nMeasuring distance...', '#0ff');
+      } else if (visibility.walle) {
+        showPopup('WALL·E', 'Waste Allocation\nLoad Lifter Earth-class', '#00ff88');
+      } else if (visibility.ron) {
+        showPopup('RON', 'Friendship Bot\nB*Bot Series 1', '#FFA500');
       }
-    });
+    }
 
     // ── Popup ─────────────────────────────────────────────────
     function showPopup(label, info, color) {
